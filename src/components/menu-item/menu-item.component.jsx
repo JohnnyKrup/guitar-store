@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { withRouter } from "react-router-dom"
 
 /**
  * Every tag can have an element style property,
@@ -7,9 +8,14 @@ import styled from "styled-components"
  * of our tiles (menuItems)
  * @param {*} param0
  */
-const MenuItem = ({ title, imageUrl, size }) => {
+const MenuItem = ({ title, imageUrl, size, slug, history, match }) => {
+  // console.log(`${match.url}${slug}`)
+
   return (
-    <Wrapper className={`${size}`}>
+    <Wrapper
+      className={`${size}`}
+      onClick={() => history.push(`${match.url}${slug}`)}
+    >
       {/* 
       In order for the image transition to work,
       another div needs to be created inside our original outer div.
@@ -101,5 +107,13 @@ const Wrapper = styled.div`
     }
   }
 `
-
-export default MenuItem
+/**
+ * we need withRouter on this component
+ * so that we do not need to do any property drilling
+ * (passing props through other components, just to bring the property where we need it)
+ * this withRouter is like extending this component with additional Router functions
+ * similar to React.Component
+ * in this case it gives us access to the "history" property that otherwise
+ * is only available at the home page level
+ */
+export default withRouter(MenuItem)
