@@ -1,46 +1,14 @@
 import React from "react"
 import MenuItem from "../menu-item/menu-item.component"
 import styled from "styled-components"
+import SECTION_DATA from "../../statics/sections.data"
 
 class Directory extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      sections: [
-        {
-          title: "Western",
-          imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
-          slug: "western-gitarren",
-          id: 1,
-        },
-        {
-          title: "Konzert",
-          imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
-          slug: "konzert-gitarren",
-          id: 2,
-        },
-        {
-          title: "Klassik",
-          imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
-          slug: "klassik-gitarren",
-          id: 3,
-        },
-        {
-          title: "Kinder",
-          imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
-          slug: "kinder-gitarren",
-          size: "large",
-          id: 4,
-        },
-        {
-          title: "Flamenco",
-          imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
-          slug: "flamenco-gitarren",
-          size: "large",
-          id: 5,
-        },
-      ],
+      sections: SECTION_DATA,
     }
   }
 
