@@ -37,6 +37,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin: 1rem auto;
 `
 
 export default Directory

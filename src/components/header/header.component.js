@@ -13,6 +13,9 @@ const Header = () => {
         <Link to="/shop" className="option">
           SHOP
         </Link>
+        <Link to="/signin" className="option">
+          ANMELDEN
+        </Link>
         <Link to="/contact" className="option">
           KONTAKT
         </Link>
@@ -33,6 +36,11 @@ const Wrapper = styled.div`
     width: 70px;
     padding: 25px;
   }
+
+  /* .logo {
+    height: auto;
+    width: 100%;
+  } */
 
   .options {
     width: 50%;
