@@ -2,8 +2,9 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { ReactComponent as Logo } from "../../assets/LogoNoText_128.svg"
+import { auth } from "../../firebase/firebase.utils"
 
-const Header = () => {
+const Header = ({ currentUser }) => {
   return (
     <Wrapper>
       <Link to="/" className="logo-container">
@@ -13,9 +14,16 @@ const Header = () => {
         <Link to="/shop" className="option">
           SHOP
         </Link>
-        <Link to="/signin" className="option">
-          ANMELDEN
-        </Link>
+        {currentUser ? (
+          <div className="option" onClick={() => auth.signOut()}>
+            ABMELDEN
+          </div>
+        ) : (
+          <Link to="/signin" className="option">
+            ANMELDEN
+          </Link>
+        )}
+
         <Link to="/contact" className="option">
           KONTAKT
         </Link>
@@ -51,6 +59,7 @@ const Wrapper = styled.div`
 
     .option {
       padding: 10px 15px;
+      cursor: pointer;
     }
   }
 `

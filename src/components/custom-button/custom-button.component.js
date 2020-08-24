@@ -6,8 +6,11 @@ import "./custom-button.styles.scss"
  * both <button> and <input> have the property type=""
  * the type="" will be passed through as the ...otherProps
  */
-const CustomButton = ({ children, ...otherProps }) => (
-  <button className="custom-button" {...otherProps}>
+const CustomButton = ({ children, isGoogleSignIn, ...otherProps }) => (
+  <button
+    className={`${isGoogleSignIn ? "google-sign-in" : ""} custom-button`}
+    {...otherProps}
+  >
     {children}
   </button>
 )
