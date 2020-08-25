@@ -1,7 +1,7 @@
 import React from "react"
 import "./App.css"
 import HomePage from "./pages/homepage.component"
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, Redirect } from "react-router-dom"
 import ShopPage from "./pages/shop/shop.component"
 import Header from "./components/header/header.component"
 import SignInAndSignUpPage from "./pages/sign-in-and-up/sign-in-and-up.component"
@@ -59,12 +59,37 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
-          <Route path="/signin" component={SignInAndSignUpPage} />
+          {/**
+           * instead of component={SignInAndSignUpPage}
+           * we want to use the render={} prop, so that we can set up
+           * that signed in users, will be redirected to the homepage
+           * and cannot mess around with the signin page
+           */}
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? (
+                <Redirect to="/" />
+              ) : (
+                <SignInAndSignUpPage />
+              )
+            }
+          />
         </Switch>
       </div>
     )
   }
 }
+
+/**
+ * Thnaks to this function, we have access to:
+ * this.props.currentUser
+ * @param {*} param0
+ */
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+})
 
 /**
  * This function spreads the actions of the reducers
@@ -78,44 +103,4 @@ const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 })
 
-export default connect(null, mapDispatchToProps)(App)
-
-/**
- * Old componentDidMount
- * before using Redux
- */
-// componentDidMount() {
-//     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-//       // check if the user is signing in
-//       if (userAuth) {
-//         // if there is a document in firebase get back the userReference object
-//         // if there is no document, a new entry is created in the createUserProf. function
-//         // with the data from our userAuth process
-//         const userRef = await createUserProfileDocument(userAuth)
-
-//         /**
-//          * create a listener on the userRef object to get notified of any changes to it
-//          * we also get back the first state of that data
-//          * this data from the database, we set equal to our currentUser in our app
-//          * so that we can massage the data
-//          */
-//         userRef.onSnapshot((snapShot) => {
-//           /**
-//            * the ID and the rest of the data is not stored in the same place
-//            * how can we get the data of both places, with one call?
-//            * get the ID from snapShot.id
-//            * and as a 2nd arg spread ...snapShot.data() where all other props are
-//            */
-//           this.setState(
-//             {
-//               currentUser: { id: snapShot.id, ...snapShot.data() },
-//             },
-//             () => console.log(this.state)
-//           )
-//         })
-//       } else {
-//         this.setState({ currentUser: userAuth })
-//       }
-//       // console.log(this.state) cannot be added here, beacuse setState is an async call
-//     })
-//   }
+export default connect(mapStateToProps, mapDispatchToProps)(App)
