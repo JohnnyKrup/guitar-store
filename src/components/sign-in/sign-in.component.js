@@ -2,7 +2,7 @@ import React from "react"
 import FormInput from "../form-input/form-input.component"
 import "./sign-in.styles.scss"
 import CustomButton from "../custom-button/custom-button.component"
-import { signInWithGoogle } from "../../firebase/firebase.utils"
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils"
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -14,15 +14,33 @@ class SignIn extends React.Component {
     }
   }
 
-  handleSubmit = (event) => {
+  /**
+   * For the sign in process with email and password
+   * we need to extend this method and make it async
+   * @param {*} event
+   */
+  handleSubmit = async (event) => {
     /**
      * we want a custom submit handling, that's why we want
      * to prevent the deafult behavior first and then code
      * what we want the submit to do.
      */
-    event.preventDeafult()
+    event.preventDefault()
 
-    this.setState({ email: "", password: "" })
+    /**
+     * For the email and pass sign-in process
+     * we need the email and password from this.state
+     */
+    const { email, password } = this.state
+
+    try {
+      // use the firebase method to sign in, if it does not work catch the error
+      await auth.signInWithEmailAndPassword(email, password)
+      // if it worked, clear the form
+      this.setState({ email: "", password: "" })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   handleChange = (event) => {

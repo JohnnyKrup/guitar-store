@@ -50,7 +50,7 @@ class App extends React.Component {
       } else {
         this.setState({ currentUser: userAuth })
       }
-      console.log(this.state) //cannot be added here, beacuse setState is an async call
+      // console.log(this.state) cannot be added here, beacuse setState is an async call
 
       // this.setState({ currentUser: user })
     })
