@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { ReactComponent as Logo } from "../../assets/LogoNoText_128.svg"
 import { auth } from "../../firebase/firebase.utils"
+import { connect } from "react-redux"
 
 const Header = ({ currentUser }) => {
   return (
@@ -64,4 +65,25 @@ const Wrapper = styled.div`
   }
 `
 
-export default Header
+/**
+ * The state that is passed in here is thr RootReducer
+ * that's why we have to access .user from the RootReducer
+ * then from that property we get the userReducer and in there
+ * we want the currentUser from the userReducer
+ * [root-reducer].[reducer-selection].[reducer-propertyValue]
+ * @param {*} state
+ */
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+})
+
+/**
+ * connect is a HigherOrderComponent (HOC) it is a function
+ * that takes in a component as an argument and returns a new component
+ * source: https://reactjs.org/docs/higher-order-components.html
+ *
+ * In our sample we extend the Header Component and we export the
+ * Header Component with that added functionality, instead of the
+ * initial Header Component
+ */
+export default connect(mapStateToProps)(Header)

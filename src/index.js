@@ -3,13 +3,22 @@ import ReactDOM from "react-dom"
 import "./index.css"
 import App from "./App"
 import { BrowserRouter } from "react-router-dom"
+import { Provider } from "react-redux"
+import store from "./redux/store"
 
+/**
+ * the <Provider> wraps the whole application,
+ * it needs to in order to be able to pass information
+ * to every component in the project
+ */
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  </Provider>,
   document.getElementById("root")
 )
 
