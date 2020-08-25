@@ -1,9 +1,13 @@
 import React from "react"
-import styled from "styled-components"
+import "./collection-item.styles.scss"
+import CustomButton from "../custom-button/custom-button.component"
+import { connect } from "react-redux"
+import { addItem } from "../../redux/cart/cart.actions"
 
-const CollectionItem = ({ id, name, price, imageUrl }) => {
+const CollectionItem = ({ item, addItem }) => {
+  const { name, price, imageUrl } = item
   return (
-    <Wrapper>
+    <div className="collection-item">
       <div
         className="image"
         style={{ backgroundImage: `url(${imageUrl})` }}
@@ -12,41 +16,20 @@ const CollectionItem = ({ id, name, price, imageUrl }) => {
         <span className="name">{name} </span>
         <span className="price">{price} $</span>
       </div>
-    </Wrapper>
+      <CustomButton onClick={() => addItem(item)} inverted>
+        In den Warenkorb
+      </CustomButton>
+    </div>
   )
 }
 
-const Wrapper = styled.div`
-  width: 22%;
-  display: flex;
-  flex-direction: column;
-  height: 350px;
-  align-items: center;
+/**
+ * When addItem is called, an item is passed in,
+ * then the dispatch function executes the cart.action addItem
+ * @param {*} dispatch
+ */
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
+})
 
-  .image {
-    width: 100%;
-    height: 95%;
-    background-size: cover;
-    background-position: center;
-    margin-bottom: 5px;
-  }
-
-  .collection-footer {
-    width: 100%;
-    height: 5%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-
-    .name {
-      width: 80%;
-      margin-bottom: 15px;
-    }
-
-    .price {
-      width: 20%;
-    }
-  }
-`
-
-export default CollectionItem
+export default connect(null, mapDispatchToProps)(CollectionItem)
