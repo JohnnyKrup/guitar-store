@@ -28,4 +28,13 @@
     margin-left: auto;
     font-size: 36px;
   }
+
+  .test-data {
+    margin: 20px 0;
+    color: red;
+
+    .payment span {
+      font-weight: 700;
+    }
+  }
 }

@@ -39,7 +39,7 @@ const SHOP_DATA = {
       {
         id: 1006,
         name: "Hernandez Profesor",
-        imageUrl: "/images/shop-img/konzert/hernandez-profesor",
+        imageUrl: "/images/shop-img/konzert/hernandez-profesor.jpg",
         price: 249,
       },
       {

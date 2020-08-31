@@ -7,7 +7,7 @@ import { collectionSelector } from "../../redux/shop/shop.selector"
 
 import "./collection.styles.scss"
 
-const CategoryPage = ({ collection }) => {
+const CollectionPage = ({ collection }) => {
   // console.log(collection)
   const { title, items } = collection
 
@@ -37,4 +37,4 @@ const mapStateToProps = (state, ownProps) => ({
   collection: collectionSelector(ownProps.match.params.collectionId)(state),
 })
 
-export default connect(mapStateToProps)(CategoryPage)
+export default connect(mapStateToProps)(CollectionPage)
