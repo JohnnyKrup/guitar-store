@@ -1,7 +1,7 @@
 /* Used as starting data for ShopPage */
 
-const SHOP_DATA = [
-  {
+const SHOP_DATA = {
+  "konzert-gitarren": {
     id: 1000,
     title: "Konzert",
     routeName: "konzert-gitarren",
@@ -56,7 +56,7 @@ const SHOP_DATA = [
       },
     ],
   },
-  {
+  "flamenco-gitarren": {
     id: 2000,
     title: "Flamenco",
     routeName: "flamenco-gitarren",
@@ -111,7 +111,7 @@ const SHOP_DATA = [
       },
     ],
   },
-  {
+  "kinder-gitarren": {
     id: 3000,
     title: "Kinder",
     routeName: "kinder-gitarren",
@@ -148,7 +148,7 @@ const SHOP_DATA = [
       },
     ],
   },
-  {
+  "western-gitarren": {
     id: 4000,
     title: "Western",
     routeName: "western-gitarren",
@@ -197,7 +197,7 @@ const SHOP_DATA = [
       },
     ],
   },
-  {
+  "meister-gitarren": {
     id: 5000,
     title: "Meister",
     routeName: "meister-gitarren",
@@ -240,6 +240,6 @@ const SHOP_DATA = [
       },
     ],
   },
-]
+}
 
 export default SHOP_DATA

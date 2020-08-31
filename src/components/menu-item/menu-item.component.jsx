@@ -8,13 +8,13 @@ import { withRouter } from "react-router-dom"
  * of our tiles (menuItems)
  * @param {*} param0
  */
-const MenuItem = ({ title, imageUrl, size, slug, history, match }) => {
+const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }) => {
   // console.log(`${match.url}${slug}`)
 
   return (
     <Wrapper
       className={`${size}`}
-      onClick={() => history.push(`${match.url}${slug}`)}
+      onClick={() => history.push(`${match.url}${linkUrl}`)}
     >
       {/* 
       In order for the image transition to work,
