@@ -7,7 +7,13 @@ import rootReducer from "./root-reducer"
 /**
  * for more information: https://redux.js.org/
  */
-const middlewares = [logger]
+const middlewares = []
+
+// this allows to write redux logger messages in the console
+// only in dev builds, not in production
+if (process.env.NODE_ENV === "development") {
+  middlewares.push(logger)
+}
 
 /**
  * create a redux-store, apply a middleware
