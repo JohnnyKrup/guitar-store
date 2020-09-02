@@ -44,6 +44,20 @@ class App extends React.Component {
            * and as a 2nd arg spread ...snapShot.data() where all other props are
            */
           setCurrentUser({ id: snapShot.id, ...snapShot.data() })
+
+          /**
+           * since we store values in our (SHOP_DATA.js) object that we do not
+           * want to pass into Firebase, as we want Firebase to create unique values
+           * for us, we create a new array with only the values that we need
+           *
+           * from map(obj => {}) we destructure ({title, items}) out of if and
+           * we set those values in the new array equal to their keys 'title': title, 'items': items
+           * which can be written as ({title, items})
+           */
+          // addCollectionAndDocuments(
+          //   "collections",
+          //   collectionsArray.map(({ title, items }) => ({ title, items }))
+          // )
         })
       } else {
         setCurrentUser(userAuth)

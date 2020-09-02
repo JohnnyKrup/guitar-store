@@ -5,34 +5,34 @@ const SECTIONS_DATA = [
     title: "konzert",
     imageUrl: "images/Konzert.jpg", // local file in public/images/
     id: 1,
-    linkUrl: "shop/konzert-gitarren",
+    linkUrl: "shop/konzert",
   },
   {
     title: "flamenco",
     imageUrl: "images/Flamenco.jpg", // local file in public/images/
 
     id: 2,
-    linkUrl: "shop/flamenco-gitarren",
+    linkUrl: "shop/flamenco",
   },
   {
     title: "kinder",
     imageUrl: "images/Kindergitarren.jpg", // local file in public/images/
     id: 3,
-    linkUrl: "shop/kinder-gitarren",
+    linkUrl: "shop/kinder",
   },
   {
     title: "western",
     imageUrl: "images/Western.jpg", // local file in public/images/
     size: "large",
     id: 4,
-    linkUrl: "shop/western-gitarren",
+    linkUrl: "shop/western",
   },
   {
     title: "meister",
     imageUrl: "images/Meister.jpg", // local file in public/images/
     size: "large",
     id: 5,
-    linkUrl: "shop/meister-gitarren",
+    linkUrl: "shop/meister",
   },
 ]
 

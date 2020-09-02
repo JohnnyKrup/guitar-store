@@ -1,11 +1,17 @@
 import React from "react"
 import styled from "styled-components"
 import CollectionItem from "../collection-item/collection-item.component"
+import { withRouter } from "react-router-dom"
 
-const CollectionPreview = ({ title, items }) => {
+const CollectionPreview = ({ title, items, history, match, routeName }) => {
   return (
     <Wrapper>
-      <h1 className="title">{title}</h1>
+      <h1
+        className="title"
+        onClick={() => history.push(`${match.url}/${routeName}`)}
+      >
+        {title}
+      </h1>
       <div className="preview">
         {
           /**
@@ -36,6 +42,7 @@ const Wrapper = styled.div`
     font-size: 28px;
     margin-bottom: 25px;
     text-transform: uppercase;
+    cursor: pointer;
   }
 
   .preview {
@@ -44,4 +51,4 @@ const Wrapper = styled.div`
   }
 `
 
-export default CollectionPreview
+export default withRouter(CollectionPreview)

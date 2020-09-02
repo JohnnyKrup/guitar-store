@@ -16,7 +16,11 @@ const CollectionItem = ({ item, addItem }) => {
         <div className="name">{name} </div>
         <div className="price">{price} $</div>
       </div>
-      <CustomButton onClick={() => addItem(item)} inverted>
+      <CustomButton
+        className="custom-button"
+        onClick={() => addItem(item)}
+        inverted
+      >
         In den Warenkorb
       </CustomButton>
     </div>

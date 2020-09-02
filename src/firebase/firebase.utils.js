@@ -58,6 +58,56 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef
 }
 
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey)
+  // console.log(collectionRef)
+
+  /**
+   * Firebase can execute only 1 .set() action at the time
+   * therefore, we create one big batch request, to make sure
+   * that all our chained requests are 100% functional.
+   * This way we are also able to execute more than one command at the time.
+   */
+  const batch = firestore.batch()
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc()
+    // console.log(newDocRef)
+    batch.set(newDocRef, obj)
+  })
+
+  // batch.commit() returns a promise
+  return await batch.commit()
+}
+
+export const convertCollcetionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data()
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    }
+  })
+  // console.log(transformedCollection)
+
+  /**
+   * We pass in our inital object (an empty object, as 2nd arg) {}
+   * the first key in our object will be konzert and the value will be the konzertCollection
+   * this will be added to the transformedCollection,
+   * then the accumulator will repeat that step going through every item in the collection
+   * returning an object with key value pairs
+   */
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection
+    return accumulator
+  }, {})
+}
+
 const provider = new firebase.auth.GoogleAuthProvider()
 provider.setCustomParameters({ prompt: "select_account" })
 
