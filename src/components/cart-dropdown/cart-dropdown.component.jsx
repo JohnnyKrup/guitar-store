@@ -14,6 +14,10 @@ import {
   CartItemsContainer,
 } from "./cart-dropdown.styles"
 
+/**
+ * TODO: move in cart-dropdown.conatiner.jsx for practice
+ * @param {*} param0
+ */
 const CartDropdown = ({ cartItems, history, dispatch }) => (
   <CartDropdownContainer>
     <CartItemsContainer>

@@ -1,13 +1,14 @@
 import { createStore, applyMiddleware } from "redux"
 import { persistStore } from "redux-persist"
 import logger from "redux-logger"
+import thunk from "redux-thunk"
 
 import rootReducer from "./root-reducer"
 
 /**
  * for more information: https://redux.js.org/
  */
-const middlewares = []
+const middlewares = [thunk]
 
 // this allows to write redux logger messages in the console
 // only in dev builds, not in production

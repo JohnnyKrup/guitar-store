@@ -48,3 +48,19 @@ export const collectionSelector = memoize((collectionUrlParam) =>
     (collections) => (collections ? collections[collectionUrlParam] : null)
   )
 )
+
+export const isCollectionsFetchingSelector = createSelector(
+  [shopSelector],
+  (shop) => shop.isFetching
+)
+
+export const isCollectionsLoadedSelector = createSelector(
+  [shopSelector],
+  /**
+   * by putting !! in front of an object or any other data type you
+   * can convert the data into a boolean value
+   * !!shop.collections will return true when there is an object present, even if it is an empty {}
+   * !!null returns false
+   */
+  (shop) => !!shop.collections
+)

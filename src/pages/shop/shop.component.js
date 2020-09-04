@@ -1,21 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Route } from "react-router-dom"
 import { connect } from "react-redux"
 
-import { updateCollections } from "../../redux/shop/shop.actions"
+import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions"
 
-import WithSpinner from "../../components/with-spinner/with.spinner.component"
-
-import CollectionsOverview from "../../components/collections-overview/collections-overview.component"
-import Collection from "../collection/collection.component"
-
-import {
-  firestore,
-  convertCollcetionsSnapshotToMap,
-} from "../../firebase/firebase.utils"
-
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
-const CollectionWithSpinner = WithSpinner(Collection)
+import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container"
+import CollectionConatiner from "../collection/collection.container"
 
 /**
  * we have access to the match property because in App.js
@@ -24,60 +14,33 @@ const CollectionWithSpinner = WithSpinner(Collection)
  * properties to its component
  * @param {*} param0
  */
-class ShopPage extends React.Component {
-  // this is a short version of invoking constructor(){super() state: {}}
-  // react will call constructor and super for us
-  state = {
-    loading: true,
-  }
+const ShopPage = ({ fetchCollectionsStartAsync, match }) => {
+  /**
+   * the second argument after the object, is to tell React
+   * not to call this useEffect function, in case nothing has changed
+   * it can lead to infinite loops if that 2nd arg gets forget
+   */
+  useEffect(() => {
+    fetchCollectionsStartAsync()
+  }, [fetchCollectionsStartAsync])
 
-  unsubscribeFromSnapshot = null
-
-  componentDidMount() {
-    /**
-     * Prepare data from firebase, so that we can use it in our application
-     * this way we can get rid of the static data stored in the frontend
-     */
-    const { updateCollections } = this.props
-    const collectionRef = firestore.collection("collections")
-
-    this.unsubscribeFromSnapshot = collectionRef.onSnapshot(
-      async (snapshot) => {
-        // console.log(snapshot)
-        const collectionsMap = convertCollcetionsSnapshotToMap(snapshot)
-        updateCollections(collectionsMap)
-        this.setState({ loading: false })
-      }
-    )
-  }
-
-  // console.log(match)
-  render() {
-    const { match } = this.props
-    const { loading } = this.state
-    return (
-      <div className="shop-page">
-        <Route
-          exact
-          path={`${match.path}`}
-          render={(props) => (
-            <CollectionsOverviewWithSpinner isLoading={loading} {...props} />
-          )}
-        />
-        <Route
-          path={`${match.path}/:collectionId`}
-          render={(props) => (
-            <CollectionWithSpinner isLoading={loading} {...props} />
-          )}
-        />
-      </div>
-    )
-  }
+  return (
+    <div className="shop-page">
+      <Route
+        exact
+        path={`${match.path}`}
+        component={CollectionsOverviewContainer}
+      />
+      <Route
+        path={`${match.path}/:collectionId`}
+        component={CollectionConatiner}
+      />
+    </div>
+  )
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCollections: (collectionsMap) =>
-    dispatch(updateCollections(collectionsMap)),
+  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
 })
 
 export default connect(null, mapDispatchToProps)(ShopPage)
